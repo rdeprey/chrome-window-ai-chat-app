@@ -1,4 +1,3 @@
-// @ts-ignore
 import React, { Component, ErrorInfo, ReactNode } from "react";
 import styles from "./ErrorBoundary.module.css";
 
