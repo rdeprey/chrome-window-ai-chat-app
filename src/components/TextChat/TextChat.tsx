@@ -12,7 +12,7 @@ interface PromptInputFormElement extends HTMLFormElement {
 }
 
 export const TextChat = () => {
-  const model = useWindowAIModel();
+  const modelSession = useWindowAIModel();
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const [userText, setUserText] = useState<string>("");
@@ -25,7 +25,7 @@ export const TextChat = () => {
   ) => {
     event.preventDefault();
 
-    if (!model) {
+    if (!modelSession) {
       console.error("Model not loaded");
       return;
     }
@@ -45,10 +45,12 @@ export const TextChat = () => {
     ]);
 
     // Get the model's response
-    const modelResponse = await model.prompt(
+    const modelResponse = await modelSession.prompt(
       event.currentTarget.promptInput.value
     );
 
+    // Occassionally, I've found that the model just doesn't respond
+    // This early return will prevent the app from showing an empty response
     if (!modelResponse) {
       console.error("The model did not respond");
       return;
@@ -91,6 +93,10 @@ export const TextChat = () => {
         ))}
       </div>
       <form onSubmit={handleInput} className={styles.form}>
+        {!modelSession && <div>Loading the model...</div>}
+        <label htmlFor="promptInput" className={styles.screenReaderOnly}>
+          Enter a message to send to the AI model:
+        </label>
         <textarea
           ref={textAreaRef}
           rows={5}

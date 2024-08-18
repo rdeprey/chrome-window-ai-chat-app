@@ -1,3 +1,13 @@
+.screenReaderOnly {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  position: absolute;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 1px;
+}
+
 .wrapper {
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
