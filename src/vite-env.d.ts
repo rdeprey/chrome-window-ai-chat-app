@@ -2,7 +2,9 @@
 interface Window {
   // TODO: Eventually remove this when type is added to TS?
   ai: {
-    createTextSession: () => Promise<any>;
-    createGenericSession: () => Promise<any>;
+    assistant: {
+      capabilities: () => Promise<any>;
+      create: () => Promise<any>;
+    };
   };
 }

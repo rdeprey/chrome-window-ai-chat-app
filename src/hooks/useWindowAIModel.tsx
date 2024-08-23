@@ -12,7 +12,7 @@ export const useWindowAIModel = () => {
     }
 
     const intializeSessions = async () => {
-      const aiSession = await model.current.createTextSession();
+      const aiSession = await model.current.assistant.create();
       setModelSession(aiSession);
     };
 
